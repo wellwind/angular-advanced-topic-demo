@@ -1,4 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Component, OnInit, forwardRef } from '@angular/core';
+
+export const USER_PROFILE_VALUE_ACCESSOR: any = {
+  provide: NG_VALUE_ACCESSOR,
+  useExisting: forwardRef(() => UserProfileComponent),
+  multi: true
+};
 
 @Component({
   selector: 'app-user-profile',
@@ -26,7 +33,7 @@ export class UserProfileComponent implements OnInit {
   }
 
   constructor() {
-    this.user = {name: 'wellwind'};
+    this.user = { name: 'wellwind' };
   }
 
   ngOnInit() {
