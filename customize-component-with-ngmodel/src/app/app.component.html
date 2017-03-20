@@ -1,3 +1,5 @@
-<app-user-profile></app-user-profile>
+<app-user-profile [disabled]="profileDisabled" [(ngModel)]="user"></app-user-profile>
+
+<div><button (click)="profileDisabled = !profileDisabled">Disable</button></div>
 
 <pre>{{ user | json }}</pre>
