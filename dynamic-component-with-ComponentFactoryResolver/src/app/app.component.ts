@@ -29,6 +29,7 @@ export class AppComponent {
     const componentFactory = this._componentFactoryResolver.resolveComponentFactory(this.components[componentName]);
     const viewContainerRef = this.componentHost.viewContainerRef;
 
+    viewContainerRef.clear();
     const componentRef = viewContainerRef.createComponent(componentFactory);
   }
 }
