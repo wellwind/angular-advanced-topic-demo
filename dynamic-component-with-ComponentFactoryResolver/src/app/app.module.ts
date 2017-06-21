@@ -1,3 +1,4 @@
+import { DynamicComponentService } from './dynamic-component.service';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -25,7 +26,7 @@ import { DynamicComponentDirective } from './dynamic-component.directive';
     ComponentBComponent,
     ComponentCComponent
   ],
-  providers: [],
+  providers: [DynamicComponentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

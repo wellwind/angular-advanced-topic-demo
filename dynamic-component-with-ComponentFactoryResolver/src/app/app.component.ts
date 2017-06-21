@@ -1,6 +1,5 @@
-import { ComponentCComponent } from './component-c/component-c.component';
-import { ComponentBComponent } from './component-b/component-b.component';
-import { ComponentAComponent } from './component-a/component-a.component';
+import { DynamicComponentService } from './dynamic-component.service';
+
 import { DynamicComponentDirective } from './dynamic-component.directive';
 import { Component, ComponentFactoryResolver, ViewChild } from '@angular/core';
 
@@ -15,18 +14,15 @@ export class AppComponent {
 
   selectedComponentName: string;
 
-  components = {
-    componentA: ComponentAComponent,
-    componentB: ComponentBComponent,
-    componentC: ComponentCComponent
-  }
 
-  constructor(private _componentFactoryResolver: ComponentFactoryResolver) {
+  constructor(private dynamicComponentService: DynamicComponentService,
+    private componentFactoryResolver: ComponentFactoryResolver) {
 
   }
 
   displayComponent(componentName: string) {
-    const componentFactory = this._componentFactoryResolver.resolveComponentFactory(this.components[componentName]);
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(
+      this.dynamicComponentService.getComponent(componentName));
     const viewContainerRef = this.componentHost.viewContainerRef;
 
     viewContainerRef.clear();
