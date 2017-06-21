@@ -20,6 +20,11 @@ import { DynamicComponentDirective } from './dynamic-component.directive';
     BrowserModule,
     FormsModule
   ],
+  entryComponents: [
+    ComponentAComponent,
+    ComponentBComponent,
+    ComponentCComponent
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

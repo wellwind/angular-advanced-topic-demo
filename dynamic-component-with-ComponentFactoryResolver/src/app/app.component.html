@@ -1,13 +1,16 @@
-<input type="radio" id="showComponentA" name="showComponent" value="componentA" [(ngModel)]="selectedComponentName" />
+<input type="radio" id="showComponentA" name="showComponent" value="componentA" [(ngModel)]="selectedComponentName" (change)="displayComponent('componentA')"/>
 <label for="showComponentA">Component A</label>
 
-<input type="radio" id="showComponentB" name="showComponent" value="componentB" [(ngModel)]="selectedComponentName" />
+<input type="radio" id="showComponentB" name="showComponent" value="componentB" [(ngModel)]="selectedComponentName" (change)="displayComponent('componentB')" />
 <label for="showComponentB">Component B</label>
 
-<input type="radio" id="showComponentC" name="showComponent" value="componentC" [(ngModel)]="selectedComponentName" />
+<input type="radio" id="showComponentC" name="showComponent" value="componentC" [(ngModel)]="selectedComponentName" (change)="displayComponent('componentC')" />
 <label for="showComponentC">Component C</label>
 
-<ng-template dynamic-component></ng-template>
+<h2>使用ComponentFactoryResolver動態產生新的Component<h2>
+<ng-template appDynamicComponent></ng-template>
+
+<h2>使用ngIf動態切換Component</h2>
 <app-component-a *ngIf="selectedComponentName === 'componentA'"></app-component-a>
 <app-component-b *ngIf="selectedComponentName === 'componentB'"></app-component-b>
 <app-component-c *ngIf="selectedComponentName === 'componentC'"></app-component-c>
