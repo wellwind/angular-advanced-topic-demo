@@ -7,6 +7,7 @@
 <input type="radio" id="showComponentC" name="showComponent" value="componentC" [(ngModel)]="selectedComponentName" />
 <label for="showComponentC">Component C</label>
 
+<ng-template dynamic-component></ng-template>
 <app-component-a *ngIf="selectedComponentName === 'componentA'"></app-component-a>
 <app-component-b *ngIf="selectedComponentName === 'componentB'"></app-component-b>
 <app-component-c *ngIf="selectedComponentName === 'componentC'"></app-component-c>
