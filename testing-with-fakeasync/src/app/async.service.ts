@@ -10,11 +10,8 @@ export class AsyncService {
   }
 
   theMethod() {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        this.theNumber = 10;
-        resolve();
-      }, 1000);
-    });
+    setTimeout(() => {
+      this.theNumber = 10;
+    }, 1000);
   }
 }

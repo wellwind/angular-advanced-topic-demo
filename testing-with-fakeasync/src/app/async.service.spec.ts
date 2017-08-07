@@ -1,4 +1,4 @@
-import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject, fakeAsync, tick } from '@angular/core/testing';
 
 import { AsyncService } from './async.service';
 
@@ -14,10 +14,11 @@ describe('AsyncService', () => {
     testTarget = TestBed.get(AsyncService);
   });
 
-  it('呼叫theMethod之後theNumber應該為10', (done) => {
-    testTarget.theMethod().then(() => {
-      expect(testTarget.theNumber).toBe(10);
-      done();
-    });
-  });
+  it('呼叫theMethod之後theNumber應該為10', fakeAsync(() => {
+    testTarget.theMethod();
+    tick(500);
+    expect(testTarget.theNumber).toBe(0);
+    tick(500);
+    expect(testTarget.theNumber).toBe(10);
+  }));
 });
