@@ -21,4 +21,15 @@ describe('AsyncService', () => {
     tick(500);
     expect(testTarget.theNumber).toBe(10);
   }));
+
+  it('假設theMethod非同步但不會延遲1000毫秒，直接用tick()就好', fakeAsync(() => {
+    spyOn(testTarget, 'theMethod').and.callFake(() => {
+      setTimeout(() => {
+        testTarget.theNumber = 999;
+      });
+    });
+    testTarget.theMethod();
+    tick();
+    expect(testTarget.theNumber).toBe(999);
+  }));
 });
