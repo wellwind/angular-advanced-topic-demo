@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
+import 'rxjs/add/operator/shareReplay';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,7 @@ export class AppComponent implements OnInit {
   data$: Observable<any>;
 
   ngOnInit() {
-    this.data$ = this._simulateRequest();
+    this.data$ = this._simulateRequest().shareReplay();
   }
 
   private _simulateRequest(): Observable<any> {
