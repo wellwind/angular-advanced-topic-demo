@@ -8,7 +8,10 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "test:jest": "jest",
+    "test:jest-watch": "jest --watch",
+    "test:jest-coverage": "jest --coverage"
   },
   "private": true,
   "jest": {
