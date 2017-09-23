@@ -79,7 +79,12 @@ export class UserProfileComponent implements ControlValueAccessor, Validator {
   }
 
   validate(c: AbstractControl): { [key: string]: any; } {
-    return { 'error': 'error' };
+    const value = c.value;
+    const requiredError = {
+      'error': 'name and age is required'
+    };
+
+    return (value && value.name && value.age) ? null : requiredError;
   }
 
   registerOnValidatorChange?(fn: () => void): void {
