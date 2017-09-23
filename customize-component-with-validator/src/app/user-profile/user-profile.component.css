@@ -1,0 +1,13 @@
+:host {
+  padding: 5px;
+  display: block;
+  border: 3px solid black;
+}
+
+:host(.ng-valid) {
+  border: 3px solid green;
+}
+
+:host(.ng-invalid) {
+  border: 3px solid red;
+}

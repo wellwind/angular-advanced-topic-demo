@@ -1,0 +1,13 @@
+<app-user-profile [disabled]="profileDisabled" [(ngModel)]="user" #profile="ngModel"></app-user-profile>
+
+<div><button (click)="profileDisabled = !profileDisabled">Disable</button></div>
+
+<h3>資料內容</h3>
+<pre>{{ user | json }}</pre>
+
+<h3>表單狀態</h3>
+<pre>{{ profile.errors | json }}</pre>
+
+<div><button (click)="submit()" [disabled]="profile.invalid">以上欄位必填才可以送出</button></div>
+
+<div *ngIf="isSubmit">如果你可以送出，但上面的表單有空資料，就失敗了！</div>
