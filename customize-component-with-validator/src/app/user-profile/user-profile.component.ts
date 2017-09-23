@@ -1,4 +1,4 @@
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { AbstractControl, Validator, NG_VALIDATORS, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { Component, OnInit, forwardRef, Input } from '@angular/core';
 
 export const USER_PROFILE_VALUE_ACCESSOR: any = {
@@ -7,14 +7,19 @@ export const USER_PROFILE_VALUE_ACCESSOR: any = {
   multi: true
 };
 
+export const USER_PROFILE_VALIDATORS: any = {
+  provide: NG_VALIDATORS,
+  useExisting: forwardRef(() => UserProfileComponent),
+  multi: true
+};
+
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
-  providers: [USER_PROFILE_VALUE_ACCESSOR]
+  providers: [USER_PROFILE_VALUE_ACCESSOR, USER_PROFILE_VALIDATORS]
 })
-export class UserProfileComponent implements ControlValueAccessor {
-
+export class UserProfileComponent implements ControlValueAccessor, Validator {
   user: any;
 
   get name() {
@@ -39,6 +44,7 @@ export class UserProfileComponent implements ControlValueAccessor {
 
   onChange: (value) => {};
   onTouched: () => {};
+  onValidatorChange: () => void;
 
   constructor() {
     this.user = {};
@@ -70,5 +76,13 @@ export class UserProfileComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
+  }
+
+  validate(c: AbstractControl): { [key: string]: any; } {
+    return { 'error': 'error' };
+  }
+
+  registerOnValidatorChange?(fn: () => void): void {
+    this.onValidatorChange = fn;
   }
 }
