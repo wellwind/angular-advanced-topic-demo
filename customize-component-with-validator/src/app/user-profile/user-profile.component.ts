@@ -1,7 +1,8 @@
 import { Inject, Optional, ViewChild, Component, OnInit, forwardRef, Input } from '@angular/core';
 import { Observer } from 'rxjs/Observer';
 import { Observable } from 'rxjs/Observable';
-import { NG_VALIDATORS, NG_VALUE_ACCESSOR, ControlValueAccessor, Validator, NgModel, AbstractControl } from '@angular/forms';
+import { NG_ASYNC_VALIDATORS, NG_VALUE_ACCESSOR, ControlValueAccessor, Validator, NgModel, AbstractControl } from '@angular/forms';
+import { Subject } from 'rxjs/Subject';
 
 export const USER_PROFILE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -10,7 +11,7 @@ export const USER_PROFILE_VALUE_ACCESSOR: any = {
 };
 
 export const USER_PROFILE_VALIDATORS: any = {
-  provide: NG_VALIDATORS,
+  provide: NG_ASYNC_VALIDATORS,
   useExisting: forwardRef(() => UserProfileComponent),
   multi: true
 };
@@ -90,17 +91,22 @@ export class UserProfileComponent implements OnInit, ControlValueAccessor, Valid
     this.disabled = isDisabled;
   }
 
-  validate(c: AbstractControl): { [key: string]: any; } {
-    const errors = {};
-    if (c && c.value && this.nameField) {
-      console.log(c.value.name, this.nameField.value);
-    }
-    this.formFields.forEach(field => {
-      if (field && field.invalid) {
-        errors[field.name] = field.errors;
+  validate(c: AbstractControl): Observable<{ [key: string]: any; }> {
+    const subject = new Subject();
+    setTimeout(() => {
+      const errors = {};
+      if (c && c.value && this.nameField) {
+        console.log(c.value.name, this.nameField.value);
       }
+      this.formFields.forEach(field => {
+        if (field && field.invalid) {
+          errors[field.name] = field.errors;
+        }
+      });
+      subject.next(Object.keys(errors).length ? errors : null);
+      subject.complete();
     });
-    return Object.keys(errors).length ? errors : null;
+    return subject;
   }
 
   registerOnValidatorChange?(fn: () => void): void {
