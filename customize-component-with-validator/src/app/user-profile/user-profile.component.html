@@ -1,6 +1,6 @@
 <div>
   <label for="name">Name:</label>
-  <input type="text" name="name" [(ngModel)]="name" [disabled]="disabled" #nameField="ngModel" required />
+  <input type="text" name="name" [(ngModel)]="name" [disabled]="disabled" #nameField="ngModel" required minlength="4" />
 </div>
 <div>
   <label for="age">Age:</label>

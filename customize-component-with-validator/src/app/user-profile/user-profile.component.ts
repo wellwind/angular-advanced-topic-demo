@@ -1,5 +1,7 @@
-import { NgModel, AbstractControl, Validator, NG_VALIDATORS, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ViewChild, Component, OnInit, forwardRef, Input } from '@angular/core';
+import { Inject, Optional, ViewChild, Component, OnInit, forwardRef, Input } from '@angular/core';
+import { Observer } from 'rxjs/Observer';
+import { Observable } from 'rxjs/Observable';
+import { NG_VALIDATORS, NG_VALUE_ACCESSOR, ControlValueAccessor, Validator, NgModel, AbstractControl } from '@angular/forms';
 
 export const USER_PROFILE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -89,12 +91,16 @@ export class UserProfileComponent implements OnInit, ControlValueAccessor, Valid
   }
 
   validate(c: AbstractControl): { [key: string]: any; } {
-    const value = c.value;
-    const requiredError = {
-      'error': 'name and age is required'
-    };
-
-    return (value && value.name && value.age) ? null : requiredError;
+    const errors = {};
+    if (c && c.value && this.nameField) {
+      console.log(c.value.name, this.nameField.value);
+    }
+    this.formFields.forEach(field => {
+      if (field && field.invalid) {
+        errors[field.name] = field.errors;
+      }
+    });
+    return Object.keys(errors).length ? errors : null;
   }
 
   registerOnValidatorChange?(fn: () => void): void {
