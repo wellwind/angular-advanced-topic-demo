@@ -1,0 +1,8 @@
+<div>
+  <label for="name">Name:</label>
+  <input type="text" name="name" [(ngModel)]="name" [disabled]="disabled" #nameField="ngModel" required minlength="4" />
+</div>
+<div>
+  <label for="age">Age:</label>
+  <input type="text" name="age" [(ngModel)]="age" [disabled]="disabled" #ageField="ngModel" required />
+</div>
