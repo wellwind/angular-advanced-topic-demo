@@ -1,5 +1,5 @@
-import { AbstractControl, Validator, NG_VALIDATORS, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { Component, OnInit, forwardRef, Input } from '@angular/core';
+import { NgModel, AbstractControl, Validator, NG_VALIDATORS, NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ViewChild, Component, OnInit, forwardRef, Input } from '@angular/core';
 
 export const USER_PROFILE_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
@@ -19,7 +19,11 @@ export const USER_PROFILE_VALIDATORS: any = {
   styleUrls: ['./user-profile.component.css'],
   providers: [USER_PROFILE_VALUE_ACCESSOR, USER_PROFILE_VALIDATORS]
 })
-export class UserProfileComponent implements ControlValueAccessor, Validator {
+export class UserProfileComponent implements OnInit, ControlValueAccessor, Validator {
+  @ViewChild('nameField') nameField: NgModel;
+  @ViewChild('ageField') ageField: NgModel;
+  formFields: NgModel[];
+
   user: any;
 
   get name() {
@@ -48,6 +52,12 @@ export class UserProfileComponent implements ControlValueAccessor, Validator {
 
   constructor() {
     this.user = {};
+  }
+
+  ngOnInit() {
+    this.formFields = [];
+    this.formFields.push(this.nameField);
+    this.formFields.push(this.ageField);
   }
 
   notifyValueChange() {
