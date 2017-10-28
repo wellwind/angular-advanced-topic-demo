@@ -8,6 +8,7 @@ export class GlobalHttpInterceptorService implements HttpInterceptor {
   constructor() { }
 
   public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req);
+    const newRequest = req.clone({ setHeaders: {Authotization: 'Bearer 123456'}});
+    return next.handle(newRequest);
   }
 }
