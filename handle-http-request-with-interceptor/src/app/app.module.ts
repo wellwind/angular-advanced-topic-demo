@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { RequestTimeLogHttpInterceptor } from './request-time-log-http-interceptor';
-import { GlobalHttpInterceptorService } from './global-http-interceptor.service';
+import { GlobalHttpInterceptor\ } from './global-http-interceptor';
 
 @NgModule({
   declarations: [

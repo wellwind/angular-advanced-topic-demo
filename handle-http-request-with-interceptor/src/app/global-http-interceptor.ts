@@ -1,9 +1,7 @@
 import { HttpEvent, HttpHandler, HttpRequest, HttpInterceptor } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
-@Injectable()
-export class GlobalHttpInterceptorService implements HttpInterceptor {
+export class GlobalHttpInterceptor implements HttpInterceptor {
 
   constructor() { }
 
