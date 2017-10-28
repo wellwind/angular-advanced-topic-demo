@@ -1,9 +1,10 @@
-import { GlobalHttpInterceptorService } from './global-http-interceptor.service';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
+import { RequestTimeLogHttpInterceptor } from './request-time-log-http-interceptor';
+import { GlobalHttpInterceptorService } from './global-http-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,16 @@ import { AppComponent } from './app.component';
     HttpClientModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: GlobalHttpInterceptorService, multi: true }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: GlobalHttpInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestTimeLogHttpInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
